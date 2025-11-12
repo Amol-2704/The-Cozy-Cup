@@ -1,0 +1,700 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cozy Cup</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font family -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            /* Autumn Color Palette */
+            --primary-color: #7B3F00; /* Darker Brown/Coffee */
+            --secondary-color: #D2B48C; /* Lighter Tan/Cream */
+            --accent-color: #B8860B; /* Golden/Autumn Leaf */
+            --bg-color: #F8F8F8; /* Off-White */
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Falling Leaves Animation (Custom CSS) --- */
+        .leaf-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -10; /* Behind everything */
+        }
+        .leaf {
+            position: absolute;
+            top: -10%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0.8;
+            transform: rotate(0deg);
+            animation: fall linear infinite;
+        }
+        /* Custom leaf shapes and colors for variation */
+        .leaf:nth-child(even) {
+            border-radius: 50% 0% 50% 0% / 0% 50% 0% 50%;
+            background-color: #CD5C5C; /* Darker Red */
+        }
+        .leaf:nth-child(3n) {
+            width: 15px;
+            height: 15px;
+            background-color: #FF8C00; /* Dark Orange */
+            border-radius: 60%;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(105vh) rotate(720deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* --- Hover Pop-Out Effect --- */
+        .pop-out-card {
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+        }
+        .pop-out-card:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        /* Custom Scrollbar for better aesthetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-color);
+        }
+
+        /* Ensure sections fill viewport height */
+        #home {
+            min-height: 100vh;
+        }
+        #location, #contact {
+            min-height: 80vh;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Leaf Container (Falling Leaves) -->
+    <div id="leaf-container" class="leaf-container"></div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg backdrop-blur-sm bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+            <h1 class="text-3xl font-extrabold" style="color: var(--primary-color);">
+                The Cozy Cup
+            </h1>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-lg font-medium hover:text-amber-600 transition duration-300" style="color: var(--primary-color);">Home</a>
+                <a href="#menu" class="text-lg font-medium hover:text-amber-600 transition duration-300" style="color: var(--primary-color);">Menu</a>
+                <a href="#location" class="text-lg font-medium hover:text-amber-600 transition duration-300" style="color: var(--primary-color);">Location</a>
+                <a href="#contact" class="text-lg font-medium hover:text-amber-600 transition duration-300" style="color: var(--primary-color);">Contact & Reviews</a>
+            </nav>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Home Section -->
+        <section id="home" class="flex items-center justify-center p-4" style="background-color: var(--secondary-color);">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center py-20">
+                <div class="space-y-6">
+                    <h2 class="text-5xl lg:text-6xl font-black leading-tight" style="color: var(--primary-color);">
+                        Warmth, Comfort, & The Taste of Autumn.
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-700">
+                        We believe in simple pleasures: the perfect cup of coffee, the aroma of fresh pastry, and a cozy corner to watch the world drift by.
+                    </p>
+                    <a href="#menu" class="inline-block px-8 py-3 bg-amber-600 text-white font-semibold rounded-lg shadow-xl hover:bg-amber-700 transition duration-300 transform hover:scale-105">
+                        Explore Our Menu
+                    </a>
+                </div>
+                <!-- Card with Pop-out Hover Effect -->
+                <div class="p-4 md:p-8 bg-white/70 backdrop-blur-sm rounded-xl shadow-2xl pop-out-card cursor-pointer">
+                    <img src="https://placehold.co/600x400/7B3F00/FFFFFF?text=High-End+Espresso+Shot" alt="High-quality espresso shot" class="rounded-lg shadow-xl w-full">
+                    <p class="mt-4 text-center text-gray-600 italic">Our signature shot, perfectly pulled every time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured/Pop-out Cards Section -->
+        <section id="featured" class="py-20 bg-gray-50 p-4">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-12" style="color: var(--primary-color);">Our Fall Favorites</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1: Pop-out hover -->
+                    <div class="pop-out-card bg-white rounded-xl shadow-xl overflow-hidden group cursor-pointer">
+                        <div class="h-48 md:h-64 overflow-hidden">
+                            <img src="https://placehold.co/800x600/D2B48C/333333?text=Artisan+Scones" alt="Artisan Scones" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl md:text-2xl font-semibold mb-2" style="color: var(--primary-color);">Handmade Scones</h4>
+                            <p class="text-gray-600">Baked fresh daily using seasonal, locally sourced fruit. Pairs perfectly with our Cream Chai.</p>
+                        </div>
+                    </div>
+                    <!-- Card 2: Pop-out hover -->
+                    <div class="pop-out-card bg-white rounded-xl shadow-xl overflow-hidden group cursor-pointer">
+                        <div class="h-48 md:h-64 overflow-hidden">
+                            <img src="https://placehold.co/800x600/B8860B/FFFFFF?text=Pumpkin+Spice+Latte" alt="Pumpkin Spice Latte" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl md:text-2xl font-semibold mb-2" style="color: var(--primary-color);">Signature PSL</h4>
+                            <p class="text-gray-600">Not just a trend, but a tradition. Real pumpkin, hand-ground spices, and velvety steamed milk.</p>
+                        </div>
+                    </div>
+                    <!-- Card 3: Pop-out hover -->
+                    <div class="pop-out-card bg-white rounded-xl shadow-xl overflow-hidden group cursor-pointer">
+                        <div class="h-48 md:h-64 overflow-hidden">
+                            <img src="https://placehold.co/800x600/7B3F00/FFFFFF?text=Cozy+Reading+Nook" alt="Cozy Reading Nook" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="p-6">
+                            <h4 class="text-xl md:text-2xl font-semibold mb-2" style="color: var(--primary-color);">Our Cozy Corner</h4>
+                            <p class="text-gray-600">The perfect ambiance for remote work, reading, or deep conversation. Free high-speed Wi-Fi included.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="py-20 p-4" style="background-color: var(--secondary-color);">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-16" style="color: var(--primary-color);">Our Full Menu</h3>
+
+                <!-- Daily Special -->
+                <div class="bg-amber-100 border-l-4 border-amber-600 p-6 rounded-lg shadow-xl mb-12">
+                    <h4 id="daily-special-name" class="text-2xl md:text-3xl font-extrabold mb-3 flex items-center text-amber-800">
+                        <!-- Star Icon (Lucide-react equivalent via SVG) -->
+                        <svg class="w-6 h-6 md:w-8 md:h-8 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        Daily Special: Maple Pecan Swirl
+                    </h4>
+                    <p id="daily-special-description" class="text-lg md:text-xl text-amber-700">
+                        A rich Danish pastry with toasted pecans, real maple syrup reduction, and a hint of cinnamon. Available only today until sold out!
+                        <span class="font-bold ml-4 text-green-700">$5.50</span>
+                    </p>
+
+                    <!-- NEW GEMINI FEATURE 1: Description Enhancer -->
+                    <button id="generate-description-btn" class="mt-4 px-4 py-2 text-sm bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition duration-300">
+                        Generate Poetic Description ✨
+                    </button>
+                    <div id="ai-description-output" class="mt-4 p-3 bg-white border border-amber-300 rounded-lg hidden">
+                        <!-- AI output goes here -->
+                    </div>
+                    <div id="ai-description-loading" class="mt-4 text-amber-700 hidden">Generating flavor notes...</div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Coffee & Espresso -->
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-bold mb-6 border-b-2 pb-2" style="border-color: var(--accent-color); color: var(--primary-color);">Coffee & Espresso</h4>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Americano</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$3.00 / $3.50</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Caffè Latte</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$4.50 / $5.00</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Mocha (Dark Chocolate)</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$5.00 / $5.50</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Pour Over Single Origin</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$6.00</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Pastries & Treats -->
+                    <div>
+                        <h4 class="text-2xl md:text-3xl font-bold mb-6 border-b-2 pb-2" style="border-color: var(--accent-color); color: var(--primary-color);">Pastries & Treats</h4>
+                        <ul class="space-y-4">
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Almond Croissant</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$4.50</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Blueberry Muffin</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$3.50</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Gluten-Free Brownie</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$5.00</span>
+                            </li>
+                            <li class="flex justify-between items-center pb-2 border-b border-gray-300">
+                                <span class="text-lg font-semibold">Cranberry-Orange Scone</span>
+                                <span class="text-lg font-bold" style="color: var(--primary-color);">$4.00</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="py-20 bg-gray-50 p-4">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-12" style="color: var(--primary-color);">Find Our Cozy Spot</h3>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <!-- Location Details -->
+                    <div class="space-y-6">
+                        <h4 class="text-2xl font-semibold mb-3" style="color: var(--primary-color);">Address & Hours</h4>
+                        <p class="text-lg text-gray-700">
+                            <span class="font-bold">Address:</span> 456 Autumn Lane, Cityville, CA 90210
+                        </p>
+                        <p class="text-lg text-gray-700">
+                            <span class="font-bold">Phone:</span> (555) 123-GLCF (4523)
+                        </p>
+                        <p class="text-lg text-gray-700">
+                            <span class="font-bold">Operating Hours:</span>
+                            <ul class="list-disc list-inside ml-4 mt-2">
+                                <li>Monday - Friday: 7:00 AM - 6:00 PM</li>
+                                <li>Saturday: 8:00 AM - 5:00 PM</li>
+                                <li>Sunday: 8:00 AM - 4:00 PM</li>
+                            </ul>
+                        </p>
+                        <p class="text-gray-600 italic mt-6">
+                            We offer plenty of street parking and a dedicated bike rack right out front. Come on in and stay awhile!
+                        </p>
+                    </div>
+
+                    <!-- Map (Responsive Iframe) -->
+                    <div class="rounded-xl overflow-hidden shadow-2xl h-80 md:h-96 w-full">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.7766324268685!2d-118.25708088484196!3d34.05223428060233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA!5e0!3m2!1sen!2sus!4v1633540000000!5m2!1sen!2sus"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Reviews Section (Firestore Integration) -->
+        <section id="contact" class="py-20 p-4" style="background-color: var(--secondary-color);">
+            <div class="max-w-7xl mx-auto">
+                <h3 class="text-3xl md:text-4xl font-bold text-center mb-12" style="color: var(--primary-color);">Say Hello & Share Your Experience</h3>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <!-- Contact Info & Reviews List -->
+                    <div>
+                        <h4 class="text-2xl font-semibold mb-4" style="color: var(--primary-color);">Get In Touch</h4>
+                        <p class="text-lg mb-2 text-gray-700">
+                            <span class="font-bold">Email Us:</span> <a href="mailto:info@goldenleafcafe.com" class="text-amber-700 hover:underline">info@cozycup.com</a>
+                        </p>
+                        <p class="text-lg mb-2 text-gray-700">
+                            <span class="font-bold">Call Us:</span> (555) 123-4523
+                        </p>
+                        <p class="text-lg mb-6 text-gray-700">
+                            <span class="font-bold">Your User ID:</span> <span id="display-user-id" class="text-sm text-amber-800 font-mono italic">Loading...</span>
+                        </p>
+
+                        <h4 class="text-2xl font-semibold mb-4 mt-8" style="color: var(--primary-color);">Customer Reviews (<span id="review-count">0</span>)</h4>
+                        
+                        <!-- NEW GEMINI FEATURE 2: Review Summarizer UI -->
+                        <button id="summarize-reviews-btn" class="mb-4 px-4 py-2 text-sm bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition duration-300">
+                            Summarize All Reviews ✨
+                        </button>
+                        <div id="ai-summary-output" class="mb-4 p-3 bg-white border border-gray-300 rounded-lg hidden">
+                            <!-- AI Summary output goes here -->
+                        </div>
+                        <div id="ai-summary-loading" class="mt-4 text-gray-700 hidden">Analyzing customer sentiment...</div>
+
+                        <div id="reviews-list" class="space-y-4 max-h-96 overflow-y-auto pr-2 bg-white p-4 rounded-lg shadow-inner border border-gray-200">
+                            <p class="text-gray-500 text-center">Loading reviews...</p>
+                        </div>
+                        <div id="review-error" class="text-red-500 mt-2 font-bold hidden"></div>
+                    </div>
+
+                    <!-- Review Form -->
+                    <div class="bg-white p-8 rounded-xl shadow-2xl">
+                        <h4 class="text-2xl font-semibold mb-6" style="color: var(--primary-color);">Write a Review</h4>
+                        <form id="review-form">
+                            <div class="mb-4">
+                                <label for="reviewerName" class="block text-gray-700 font-semibold mb-2">Your Name</label>
+                                <input type="text" id="reviewerName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                            <div class="mb-4">
+                                <label for="reviewRating" class="block text-gray-700 font-semibold mb-2">Rating (1-5)</label>
+                                <input type="number" id="reviewRating" min="1" max="5" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500">
+                            </div>
+                            <div class="mb-6">
+                                <label for="reviewText" class="block text-gray-700 font-semibold mb-2">Your Thoughts</label>
+                                <textarea id="reviewText" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-amber-500 focus:border-amber-500"></textarea>
+                            </div>
+                            <button type="submit" id="submit-review-btn" class="w-full px-6 py-3 bg-amber-600 text-white font-semibold rounded-lg shadow-md hover:bg-amber-700 transition duration-300">
+                                Submit Review
+                            </button>
+                            <div id="review-message" class="mt-4 text-center font-bold hidden"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="max-w-7xl mx-auto text-center text-sm">
+            &copy; 2025 The Cozy Cup. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Firebase and Application Logic Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; // Optional: uncomment for logging
+
+        // setLogLevel('Debug'); 
+
+        // --- Global Environment Variables ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth, userId;
+        let isAuthReady = false;
+        let currentReviews = []; // Global store for reviews needed for summarization
+
+        // --- Gemini API Configuration ---
+        const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent";
+        const apiKey = ""; 
+
+        // --- 1. Falling Leaves Animation Logic ---
+        function createLeaves() {
+            const container = document.getElementById('leaf-container');
+            const numLeaves = 30;
+            const baseDuration = 15;
+
+            for (let i = 0; i < numLeaves; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+
+                // Randomize starting position (left), size, and animation
+                const startX = Math.random() * 100;
+                const duration = baseDuration + (Math.random() * 10 - 5); // 10s to 20s
+                const delay = Math.random() * -15; // -15s to 0s delay for continuous loop
+                const size = 15 + Math.random() * 15; // 15px to 30px
+
+                leaf.style.left = `${startX}vw`;
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size}px`;
+                leaf.style.animationDuration = `${duration}s`;
+                leaf.style.animationDelay = `${delay}s`;
+                leaf.style.opacity = 0.5 + Math.random() * 0.5;
+
+                container.appendChild(leaf);
+            }
+        }
+
+        // --- 2. Firebase Initialization & Auth ---
+        const authStatusEl = document.getElementById('auth-status');
+        const displayUserIdEl = document.getElementById('display-user-id');
+
+        if (firebaseConfig) {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            authStatusEl.textContent = "Initializing...";
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    isAuthReady = true;
+                    authStatusEl.textContent = `Signed in as ${userId.substring(0, 8)}...`;
+                    displayUserIdEl.textContent = userId;
+                    setupRealtimeReviews();
+                } else {
+                    // Sign in with custom token or anonymously
+                    try {
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(auth, initialAuthToken);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (error) {
+                        console.error("Firebase Auth Error:", error);
+                        authStatusEl.textContent = "Auth failed (check console).";
+                        displayUserIdEl.textContent = "Auth failed.";
+                    }
+                }
+            });
+
+        } else {
+            console.error("Firebase configuration is missing.");
+            authStatusEl.textContent = "No Firebase Config.";
+            displayUserIdEl.textContent = "Unavailable.";
+        }
+
+        // --- 3. Firestore Review Logic ---
+        const REVIEWS_COLLECTION_PATH = `artifacts/${appId}/public/data/cafe_reviews`;
+        const reviewsList = document.getElementById('reviews-list');
+        const reviewForm = document.getElementById('review-form');
+        const reviewMessage = document.getElementById('review-message');
+        const reviewError = document.getElementById('review-error');
+        const reviewCount = document.getElementById('review-count');
+        const submitBtn = document.getElementById('submit-review-btn');
+
+
+        // Function to set up real-time listener for reviews
+        function setupRealtimeReviews() {
+            if (!isAuthReady || !db) return;
+
+            const reviewsRef = collection(db, REVIEWS_COLLECTION_PATH);
+
+            onSnapshot(reviewsRef, (snapshot) => {
+                const reviews = [];
+                snapshot.forEach(doc => {
+                    reviews.push({ id: doc.id, ...doc.data() });
+                });
+
+                // In-memory sort by creation time (newest first) since we avoid orderBy for index stability
+                reviews.sort((a, b) => {
+                    const timeA = a.createdAt?.seconds || 0;
+                    const timeB = b.createdAt?.seconds || 0;
+                    return timeB - timeA;
+                });
+                
+                currentReviews = reviews; // Store reviews for Gemini summarization
+                renderReviews(reviews);
+
+            }, (error) => {
+                console.error("Error fetching reviews: ", error);
+                reviewsList.innerHTML = `<p class="text-red-500 text-center">Could not load reviews. Check console for details.</p>`;
+                reviewError.textContent = `Error loading reviews: ${error.message}`;
+                reviewError.classList.remove('hidden');
+            });
+        }
+
+        // Function to render reviews in the UI
+        function renderReviews(reviews) {
+            reviewsList.innerHTML = '';
+            reviewCount.textContent = reviews.length;
+
+            if (reviews.length === 0) {
+                reviewsList.innerHTML = `<p class="text-gray-500 text-center italic">Be the first to leave a review!</p>`;
+                return;
+            }
+
+            reviews.forEach(review => {
+                const date = review.createdAt ? new Date(review.createdAt.seconds * 1000).toLocaleDateString() : 'N/A';
+                const rating = Math.min(5, Math.max(1, review.rating || 0));
+                const ratingStars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+                const reviewEl = document.createElement('div');
+                reviewEl.classList.add('p-3', 'bg-gray-50', 'rounded-lg', 'shadow-sm', 'border-l-4');
+                reviewEl.style.borderColor = rating >= 4 ? '#10B981' : (rating >= 3 ? '#F59E0B' : '#EF4444');
+
+                reviewEl.innerHTML = `
+                    <p class="font-bold text-lg" style="color: var(--primary-color);">${review.name}</p>
+                    <div class="text-amber-500 text-xl my-1">${ratingStars}</div>
+                    <p class="text-sm text-gray-700 mb-2">${review.text}</p>
+                    <p class="text-xs text-gray-400">Posted: ${date}</p>
+                `;
+                reviewsList.appendChild(reviewEl);
+            });
+        }
+
+        // Event listener for review submission
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (!isAuthReady || !db) {
+                    showReviewMessage('Please wait for the system to initialize (Auth Status).', 'text-red-500');
+                    return;
+                }
+
+                const name = document.getElementById('reviewerName').value.trim();
+                const rating = parseInt(document.getElementById('reviewRating').value, 10);
+                const text = document.getElementById('reviewText').value.trim();
+
+                if (!name || isNaN(rating) || rating < 1 || rating > 5 || !text) {
+                    showReviewMessage('Please fill out all fields correctly (Rating must be 1-5).', 'text-red-500');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                reviewError.classList.add('hidden');
+
+                try {
+                    await addDoc(collection(db, REVIEWS_COLLECTION_PATH), {
+                        name: name,
+                        rating: rating,
+                        text: text,
+                        createdAt: serverTimestamp(),
+                        userId: userId,
+                    });
+
+                    showReviewMessage('Thank you! Your review has been submitted and will appear shortly.', 'text-green-600');
+                    reviewForm.reset();
+
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    showReviewMessage(`Submission failed: ${error.message}`, 'text-red-500');
+                    reviewError.textContent = `Submission failed: ${error.message}`;
+                    reviewError.classList.remove('hidden');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Review';
+                }
+            });
+        }
+
+        function showReviewMessage(message, colorClass) {
+            reviewMessage.textContent = message;
+            reviewMessage.className = `mt-4 text-center font-bold ${colorClass}`;
+            reviewMessage.classList.remove('hidden');
+            setTimeout(() => {
+                reviewMessage.classList.add('hidden');
+            }, 5000);
+        }
+
+        // --- Helper for Gemini API Call with Backoff ---
+        async function fetchWithRetry(payload, maxRetries = 3) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(`${API_URL}?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                        if (text) {
+                            return text;
+                        }
+                    } else if (response.status === 429 && i < maxRetries - 1) {
+                        // Rate limit, try again with exponential backoff
+                        const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        continue;
+                    }
+                    throw new Error(`API request failed with status: ${response.status}`);
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                }
+            }
+        }
+
+
+        // --- GEMINI FEATURE 1: Daily Special Description Enhancer ---
+        const generateDescriptionBtn = document.getElementById('generate-description-btn');
+        const aiDescriptionOutput = document.getElementById('ai-description-output');
+        const aiDescriptionLoading = document.getElementById('ai-description-loading');
+        
+        // Retrieve details from the DOM or hardcode as fallback
+        const dailySpecialName = document.getElementById('daily-special-name')?.textContent.replace('Daily Special: ', '').trim() || "Maple Pecan Swirl"; 
+        const dailySpecialDescriptionElement = document.getElementById('daily-special-description');
+        const dailySpecialDescription = dailySpecialDescriptionElement 
+                                     ? dailySpecialDescriptionElement.textContent.split('Available only')[0].trim() 
+                                     : "A rich Danish pastry with toasted pecans, real maple syrup reduction, and a hint of cinnamon.";
+
+        async function generateDailySpecialDescription() {
+            aiDescriptionOutput.classList.add('hidden');
+            aiDescriptionLoading.classList.remove('hidden');
+            generateDescriptionBtn.disabled = true;
+
+            const userQuery = `Write a short, engaging, and poetic 50-word description for a cafe menu item called "${dailySpecialName}" described as: "${dailySpecialDescription}". Focus on the sensory experience and autumn theme.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: "You are a creative cafe copywriter." }] },
+            };
+
+            try {
+                const description = await fetchWithRetry(payload);
+                aiDescriptionOutput.innerHTML = `<p class="italic text-gray-800">${description}</p>`;
+                aiDescriptionOutput.classList.remove('hidden');
+            } catch (error) {
+                console.error("Gemini Description Error:", error);
+                aiDescriptionOutput.innerHTML = `<p class="text-red-500">Error generating description.</p>`;
+                aiDescriptionOutput.classList.remove('hidden');
+            } finally {
+                aiDescriptionLoading.classList.add('hidden');
+                generateDescriptionBtn.disabled = false;
+            }
+        }
+
+        if (generateDescriptionBtn) {
+            generateDescriptionBtn.addEventListener('click', generateDailySpecialDescription);
+        }
+
+
+        // --- GEMINI FEATURE 2: Review Summarizer ---
+        const summarizeReviewsBtn = document.getElementById('summarize-reviews-btn');
+        const aiSummaryOutput = document.getElementById('ai-summary-output');
+        const aiSummaryLoading = document.getElementById('ai-summary-loading');
+
+        async function summarizeCafeReviews() {
+            if (currentReviews.length === 0) {
+                aiSummaryOutput.innerHTML = `<p class="text-gray-500">No reviews to summarize yet. Be the first!</p>`;
+                aiSummaryOutput.classList.remove('hidden');
+                return;
+            }
+
+            aiSummaryOutput.classList.add('hidden');
+            aiSummaryLoading.classList.remove('hidden');
+            summarizeReviewsBtn.disabled = true;
+
+            // Format reviews for the LLM
+            const reviewTexts = currentReviews.map(r => `[Rating ${r.rating}/5]: ${r.text}`).join('\n---\n');
+
+            const userQuery = `Analyze the following customer reviews for a cafe. Provide a short (max 75 words) summary highlighting the overall sentiment, the most common positive feedback, and any recurring suggestions or negatives. Here are the reviews:\n\n${reviewTexts}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: "You are a professional business analyst providing concise, actionable feedback based on customer reviews." }] },
+            };
+
+            try {
+                const summary = await fetchWithRetry(payload);
+                aiSummaryOutput.innerHTML = `<p class="text-gray-800">${summary}</p>`;
+                aiSummaryOutput.classList.remove('hidden');
+            } catch (error) {
+                console.error("Gemini Summary Error:", error);
+                aiSummaryOutput.innerHTML = `<p class="text-red-500">Error generating summary.</p>`;
+                aiSummaryOutput.classList.remove('hidden');
+            } finally {
+                aiSummaryLoading.classList.add('hidden');
+                summarizeReviewsBtn.disabled = false;
+            }
+        }
+
+        if (summarizeReviewsBtn) {
+            summarizeReviewsBtn.addEventListener('click', summarizeCafeReviews);
+        }
+
+        // Initialize App on load
+        window.onload = function() {
+            createLeaves();
+        };
+
+    </script>
+</body>
+</html>
